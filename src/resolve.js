@@ -7,7 +7,7 @@ var pending = {}
  */
 module.exports = function resolve (directory, file) {
   var parsed = path.parse(file)
-  var id = !parsed.root && !parsed.dir ? parsed.base : path.join(directory, file)
+  var id = !parsed.root && !parsed.dir ? parsed.base : path.resolve(directory, file)
 
   pending[id] = pending[id] || new Promise(function (resolve, reject) {
     resolveAsync(global, directory, file, function (err, filePath) {

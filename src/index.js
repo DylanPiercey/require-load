@@ -19,7 +19,7 @@ delete require.cache[__filename]
 module.exports = function requireEnsure (file, opts) {
   opts = opts || {}
   var skipCache = opts.cache === false
-  var directory = opts.path || path.parse(module.parent.filename).dir
+  var directory = opts.path || path.dirname(module.parent.filename)
 
   return resolve(directory, file).then(function (filePath) {
     var cache = require.cache
