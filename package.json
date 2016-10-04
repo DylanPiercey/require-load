@@ -1,0 +1,47 @@
+{
+  "name": "require-load",
+  "description": "Asynchronously require files in node js.",
+  "version": "1.0.0",
+  "author": "Dylan Piercey <pierceydylan@gmail.com>",
+  "bugs": "https://github.com/DylanPiercey/require-load/issues",
+  "dependencies": {
+    "enhanced-resolve": "^2.3.0",
+    "mz": "^2.4.0",
+    "strip-bom": "^3.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.1.0",
+    "rill": "^2.1.6",
+    "snazzy": "^5.0.0",
+    "standard": "^8.1.0"
+  },
+  "homepage": "https://github.com/DylanPiercey/require-load",
+  "keywords": [
+    "async",
+    "load",
+    "require",
+    "require-async",
+    "require-load"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DylanPiercey/require-load"
+  },
+  "scripts": {
+    "lint": "standard --verbose | snazzy",
+    "mocha": "mocha ./test/*.test.js",
+    "test": "npm run lint && npm run mocha"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "it",
+      "before",
+      "beforeEach",
+      "after",
+      "afterEach"
+    ]
+  }
+}
