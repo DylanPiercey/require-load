@@ -80,6 +80,17 @@ Clearing a file from the cache is the exact same as any other node module (once 
   })
 ```
 
+## Custom extensions
+Just like node's require you can add or overwrite the file extensions, however instead of calling the extension function with a filename it will be called with the file's contents.
+
+```javascript
+// A naive babel loader for babel es6 files.
+import babel from 'babel-core'
+load.extensions['.es6'] = function parseCustomFile (module, script) {
+  module._compile(babel.transform(script), module.filename)
+}
+```
+
 ### Contributions
 
 * Use `npm test` to run tests.

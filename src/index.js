@@ -9,6 +9,10 @@ var extensions = require('./extensions')
 // Do not return cached versions of this module since we must know the parent module.
 delete require.cache[__filename]
 
+// Expose extensions and loader.
+requireEnsure.extensions = extensions
+module.exports = requireEnsure
+
 /**
  * Asynchronously require a file and load it into a vm to evaluate it's exports.
  *
@@ -16,7 +20,7 @@ delete require.cache[__filename]
  * @param {Object} opts - options to use when requiring a file.
  * @return {Promise}
  */
-module.exports = function requireEnsure (file, opts) {
+function requireEnsure (file, opts) {
   opts = opts || {}
   var skipCache = opts.cache === false
   var directory = opts.path || path.dirname(module.parent.filename)
