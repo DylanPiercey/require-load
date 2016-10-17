@@ -3,11 +3,9 @@
 var fs = require('mz/fs')
 var path = require('path')
 var Module = require('module')
+var callsite = require('callsite')
 var resolve = require('./resolve')
 var extensions = require('./extensions')
-
-// Do not return cached versions of this module since we must know the parent module.
-delete require.cache[__filename]
 
 // Expose extensions and loader.
 requireEnsure.extensions = extensions
@@ -23,7 +21,7 @@ module.exports = requireEnsure
 function requireEnsure (file, opts) {
   opts = opts || {}
   var skipCache = opts.cache === false
-  var directory = opts.path || path.dirname(module.parent.filename)
+  var directory = opts.path || getCallingFileDirectory()
 
   return resolve(directory, file).then(function (filePath) {
     var cache = require.cache
@@ -64,4 +62,13 @@ function requireEnsure (file, opts) {
     // Send out the pending require.
     return cached.promise
   })
+}
+
+/**
+ * Gets the directory from which a function was called.
+ *
+ * @return {String}
+ */
+function getCallingFileDirectory () {
+  return path.dirname(callsite()[2].getFileName())
 }

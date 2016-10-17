@@ -5,6 +5,7 @@
   "author": "Dylan Piercey <pierceydylan@gmail.com>",
   "bugs": "https://github.com/DylanPiercey/require-load/issues",
   "dependencies": {
+    "callsite": "^1.0.0",
     "enhanced-resolve": "^2.3.0",
     "mz": "^2.4.0",
     "strip-bom": "^3.0.0"

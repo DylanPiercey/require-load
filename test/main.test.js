@@ -61,7 +61,12 @@ describe('require-ensure', function () {
     })
   })
 
-  it('should never cache this module', function () {
-    assert.notEqual(require('..'), require('..'), 'Should not be cached.')
+  it('should work across files', function () {
+    return Promise.all([
+      require('./examples/submodule-require'),
+      requireAsync('./examples/export-values')
+    ]).then(function (results) {
+      assert.equal(results[0], results[1], 'Should not be cached.')
+    })
   })
 })
