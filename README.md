@@ -12,11 +12,11 @@
   </a>
   <!-- NPM version -->
   <a href="https://npmjs.org/package/require-load">
-    <img src="https://img.shields.io/npm/v/dylanpiercey/require-load.svg?style=flat-square" alt="NPM version"/>
+    <img src="https://img.shields.io/npm/v/require-load.svg?style=flat-square" alt="NPM version"/>
   </a>
   <!-- Downloads -->
   <a href="https://npmjs.org/package/require-load">
-    <img src="https://img.shields.io/npm/dm/dylanpiercey/require-load.svg?style=flat-square" alt="Downloads"/>
+    <img src="https://img.shields.io/npm/dm/require-load.svg?style=flat-square" alt="Downloads"/>
   </a>
 </h1>
 
@@ -39,8 +39,9 @@ Asynchronously require a specific file. File name resolution works exactly the s
 import load from 'require-load'
 
 load('./example.js').then(result => {
-  // Result will be the exports of `example.js`
-  // Subsequent calls will be cached.
+  // Result will be the exports of `example.js`, subsequent calls will be cached.
+  // You can even get the cached version using plain old require.
+  require('./example.js') === result
 }).catch(err => {
   // Handle file load error.
 })

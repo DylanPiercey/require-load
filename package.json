@@ -10,10 +10,10 @@
     "strip-bom": "^3.0.0"
   },
   "devDependencies": {
-    "mocha": "^3.1.0",
-    "rill": "^2.1.6",
+    "mocha": "^3.1.2",
+    "rill": "^2.4.0",
     "snazzy": "^5.0.0",
-    "standard": "^8.1.0"
+    "standard": "^8.4.0"
   },
   "homepage": "https://github.com/DylanPiercey/require-load",
   "keywords": [
