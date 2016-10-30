@@ -30,7 +30,7 @@ describe('require-ensure', function () {
   })
 
   it('should require from provided path', function () {
-    return requireAsync('./export-values', { path: path.join(__dirname, 'examples') }).then(function (it) {
+    return requireAsync('./export-values', { directory: path.join(__dirname, 'examples') }).then(function (it) {
       assert.deepEqual(it, { a: 1, b: 2 }, 'Should have got export-values module.')
     })
   })

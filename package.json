@@ -26,6 +26,7 @@
   ],
   "license": "MIT",
   "main": "src/index.js",
+  "browser": "src/browser.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/DylanPiercey/require-load"

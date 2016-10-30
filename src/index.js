@@ -21,7 +21,9 @@ module.exports = requireEnsure
 function requireEnsure (file, opts) {
   opts = opts || {}
   var skipCache = opts.cache === false
-  var directory = opts.path || getCallingFileDirectory()
+  var callingFile = opts.file || getCallingFile()
+  var directory = opts.directory || path.dirname(callingFile)
+  var parent = require.cache[callingFile]
 
   return resolve(directory, file).then(function (filePath) {
     var cache = require.cache
@@ -35,7 +37,7 @@ function requireEnsure (file, opts) {
     }
 
     // Create a new module for the require.
-    cached = cache[filePath] = new Module(filePath, module.parent)
+    cached = cache[filePath] = new Module(filePath, parent)
 
     // Create a sandbox to run the script in.
     var fileDirectory = path.dirname(filePath)
@@ -65,10 +67,10 @@ function requireEnsure (file, opts) {
 }
 
 /**
- * Gets the directory from which a function was called.
+ * Gets the file from which a function was called.
  *
  * @return {String}
  */
-function getCallingFileDirectory () {
-  return path.dirname(callsite()[2].getFileName())
+function getCallingFile () {
+  return callsite()[2].getFileName()
 }

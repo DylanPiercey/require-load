@@ -60,14 +60,24 @@ load('./example.js', { cache: false }).then(result1 => {
 })
 ```
 
-### path=directory (default relative to module.parent)
+### `directory=__dirname` (default relative to the function calling load)
 
 You can optionally choose which directory the resolve files from.
 By default this will be relative to where ever this module is required.
 
 ```javascript
-load('./main.test.js', { path: __dirname + '/test' }).then(result => {
+load('./main.test.js', { directory: __dirname + '/test' }).then(result => {
   // Will resolve modules from the test folder instead of where this was required.
+})
+```
+
+### `file=__filename` (default relative to the function calling load)
+
+You can also optionally specify a file from which the loader should run. (This also defaults the directory option to be the dirname of the file).
+
+```javascript
+load('./main.test.js', { file: __dirname + '/test/custom.test.js' }).then(result => {
+  // Will resolve modules relative to the custom.test.js file instead of where this was required.
 })
 ```
 
