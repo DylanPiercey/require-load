@@ -1,7 +1,7 @@
 {
   "name": "require-load",
   "description": "Asynchronously require files in node js.",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "author": "Dylan Piercey <pierceydylan@gmail.com>",
   "bugs": "https://github.com/DylanPiercey/require-load/issues",
   "dependencies": {
