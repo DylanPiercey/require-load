@@ -47,7 +47,21 @@ load('./example.js').then(result => {
 })
 ```
 
-## Options
+### load.resolve(file: String, options: Object) -> {Promise}
+Asynchronously resolve a file path. (Like require.resolve but async.).
+
+
+```javascript
+import { resolve } from 'require-load'
+
+resolve('./example.js').then(fullpath => {
+  // Result will be the full path of './example.js'
+}).catch(err => {
+  // Handle file resolve error.
+})
+```
+
+## Options (same for both load and load.resolve)
 
 ### cache=false (default true)
 When the cache option is false the module will be re-evaluated and not cached for the next load call.
@@ -78,20 +92,6 @@ You can also optionally specify a file from which the loader should run. (This a
 ```javascript
 load('./main.test.js', { file: __dirname + '/test/custom.test.js' }).then(result => {
   // Will resolve modules relative to the custom.test.js file instead of where this was required.
-})
-```
-
-### load.resolve(file: String) -> {Promise}
-Asynchronously resolve a file path. (Like require.resolve but async.).
-
-
-```javascript
-import { resolve } from 'require-load'
-
-resolve('./example.js').then(fullpath => {
-  // Result will be the full path of './example.js'
-}).catch(err => {
-  // Handle file resolve error.
 })
 ```
 
