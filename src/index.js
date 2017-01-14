@@ -8,8 +8,9 @@ var resolve = require('./resolve')
 var extensions = require('./extensions')
 
 // Expose extensions and loader.
-requireEnsure.extensions = extensions
-module.exports = requireEnsure
+requireLoad.extensions = extensions
+requireLoad.resolve = resolve
+module.exports = requireLoad
 
 /**
  * Asynchronously require a file and load it into a vm to evaluate it's exports.
@@ -18,7 +19,7 @@ module.exports = requireEnsure
  * @param {Object} opts - options to use when requiring a file.
  * @return {Promise}
  */
-function requireEnsure (file, opts) {
+function requireLoad (file, opts) {
   opts = opts || {}
   var skipCache = opts.cache === false
   var callingFile = opts.file || getCallingFile()

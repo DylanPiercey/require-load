@@ -81,6 +81,20 @@ load('./main.test.js', { file: __dirname + '/test/custom.test.js' }).then(result
 })
 ```
 
+### load.resolve(file: String) -> {Promise}
+Asynchronously resolve a file path. (Like require.resolve but async.).
+
+
+```javascript
+import { resolve } from 'require-load'
+
+resolve('./example.js').then(fullpath => {
+  // Result will be the full path of './example.js'
+}).catch(err => {
+  // Handle file resolve error.
+})
+```
+
 ## Clearing the cache
 Clearing a file from the cache is the exact same as any other node module (once the file has loaded).
 
