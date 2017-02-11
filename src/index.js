@@ -1,6 +1,6 @@
 'use strict'
 
-var fs = require('mz/fs')
+var fs = require('fs')
 var path = require('path')
 var Module = require('module')
 var callsite = require('callsite')
@@ -51,11 +51,14 @@ function requireAsync (file, opts) {
     cached.paths = Module._nodeModulePaths(fileDirectory)
 
     // Load the file and save the pending promise in the require cache.
-    cached.promise = fs.readFile(filePath, 'utf8').then(function (script) {
-      compile(cached, script)
-      delete cached.promise
-      cached.loaded = true
-      return cached.exports
+    cached.promise = new Promise(function (resolve, reject) {
+      opts.resolve.fileSystem.readFile(filePath, 'utf8', function (err, result) {
+        if (err) return reject(err)
+        compile(cached, result)
+        delete cached.promise
+        cached.loaded = true
+        resolve(cached.exports)
+      })
     })
 
     // Send out the pending require.
@@ -78,7 +81,7 @@ function resolveAsync (file, opts) {
 
   if (opts.cache && cached) return cached
   cached = resolveCache[id] = new Promise(function (resolve, reject) {
-    enhancedResolve(global, opts.directory, file, function (err, filePath) {
+    enhancedResolve.create(opts.resolve)(opts.directory, file, function (err, filePath) {
       if (err) {
         delete resolveCache[id]
         reject(err)
@@ -96,6 +99,8 @@ function resolveAsync (file, opts) {
  */
 function defaultOptions (opts) {
   opts = opts || {}
+  opts.resolve = opts.resolve || {}
+  opts.resolve.fileSystem = opts.resolve.fileSystem || fs
   opts.file = opts.file || getCallingFile()
   opts.cache = 'cache' in opts ? opts.cache : true
   opts.directory = opts.directory || path.dirname(opts.file)

@@ -36,8 +36,8 @@ describe('require-ensure', function () {
   })
 
   it('should require from node_modules', function () {
-    return requireAsync('mz').then(function (it) {
-      assert.deepEqual(Object.keys(it), [ 'fs', 'dns', 'zlib', 'crypto', 'readline', 'child_process' ], 'Should have mz module.')
+    return requireAsync('callsite').then(function (it) {
+      assert.ok(typeof it === 'function', 'should be a function.')
     })
   })
 
@@ -67,6 +67,15 @@ describe('require-ensure', function () {
       requireAsync('./examples/export-values')
     ]).then(function (results) {
       assert.equal(results[0], results[1], 'Should not be cached.')
+    })
+  })
+
+  it('should be able to override the file system.', function () {
+    var MemoryFileSystem = require('memory-fs')
+    var fs = new MemoryFileSystem()
+    fs.writeFileSync('/test.js', 'module.exports = 2;')
+    return requireAsync('/test.js', { resolve: { fileSystem: fs } }).then(function (it) {
+      assert.equal(it, 2, 'should read from memory')
     })
   })
 })

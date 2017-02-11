@@ -95,6 +95,24 @@ load('./main.test.js', { file: __dirname + '/test/custom.test.js' }).then(result
 })
 ```
 
+### `resolve.fileSystem=MemoryFileSystem` (default to nodeFileSystem.)
+
+You can choose the file system to use when resolving and compiling files. The default will just be the standard 'fs' module but you can also get fancy and use other files systems like 'memory-fs'.
+
+```javascript
+import path from 'path'
+import MemoryFileSystem from 'memory-fs'
+const memoryFs = new MemoryFileSystem()
+
+// Save a file to memory fs.
+memoryFs.writeFileSync(path.join(__dirname, './main.test.js'), 'module.exports = "hello world"')
+
+// Load the file from memory.
+load('./main.test.js', { resolve: { fileSystem: memoryFs } }).then(result => {
+  result === 'hello world'
+})
+```
+
 ## Clearing the cache
 Clearing a file from the cache is the exact same as any other node module (once the file has loaded).
 
